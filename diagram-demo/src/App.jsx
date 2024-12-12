@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Select, Table, Input } from "antd";
 // import { icon } from "./assets";
-
 const { Sider, Content } = Layout;
 
 const App = () => {
@@ -39,7 +38,7 @@ const App = () => {
     }
     return <MyDocuments />;
   };
-  console.log(content());
+
   return (
     <Layout>
       <Sider
