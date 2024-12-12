@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import icon from "../assets/home.png";
+import { Button, Input } from "antd";
 const Register = () => {
   let navigate = useNavigate();
   return (
@@ -74,24 +75,24 @@ const Register = () => {
               Let's get started!
             </div>
             <div className="mb-[20px]">Create your FREE account now</div>
-            <input
+            <Input
               className="rounded border-2 border-[#f0f0f0] w-full p-[5px] mb-[10px] focus:outline-none"
               placeholder="Email Address"
             />
-            <input
+            <Input
               className="rounded border-2 border-[#f0f0f0] w-full p-[5px] mb-[10px] focus:outline-none"
               placeholder="Password"
             />
-            <button className="rounded bg-[#1a69ca] w-full h-[38px] text-white mb-[10px]">
+            <Button className="rounded bg-[#1a69ca] w-full h-[38px] text-white mb-[10px]">
               Sign Up
-            </button>
+            </Button>
             <div className="w-full border-t-2 border-[#f0f0f0] mb-[10px]" />
-            <button className="rounded border-2 border-[#f0f0f0] w-full h-[38px] text-[#5e606a] mb-[10px]">
+            <Button className="rounded border-2 border-[#f0f0f0] w-full h-[38px] text-[#5e606a] mb-[10px]">
               <div className="flex justify-center gap-[10px]">
                 <img src={icon} alt="" className="w-[20px] h-[20px]" />
                 <div>Sign Up with Google</div>
               </div>
-            </button>
+            </Button>
             <div>
               By signing up, you agree to the{" "}
               <span
