@@ -15,10 +15,6 @@ const { Sider, Content } = Layout;
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [keyContent, setKeyContent] = useState("1");
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  console.log(colorBgContainer, borderRadiusLG);
   const content = () => {
     switch (keyContent) {
       case "1":
