@@ -1,4 +1,7 @@
-function App() {
+import { useNavigate } from "react-router";
+import icon from "../assets/home.png";
+const Register = () => {
+  let navigate = useNavigate();
   return (
     <div className="h-screen flex items-center justify-center">
       <div>
@@ -99,7 +102,24 @@ function App() {
               </span>
             </div>
           </div>
-          
         </div>
-        <div className="w-[800px] grid grid-cols-2"/> </div>
-  </div>
+        <div className="w-[800px] grid grid-cols-2 mt-[20px]">
+          <div />
+          <div className="flex justify-center">
+            Already have account?{" "}
+            <span
+              className="text-[#41388a] cursor-pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Sign In
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Register;

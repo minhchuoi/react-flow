@@ -1,4 +1,7 @@
-const App = () => {
+import { useNavigate } from "react-router";
+import icon from "../assets/home.png";
+const Login = () => {
+  let navigate = useNavigate();
   return (
     <div className="bg-[#f5f5f8] h-screen flex items-center justify-center">
       <div>
@@ -14,8 +17,13 @@ const App = () => {
             className="rounded border-2 border-[#f0f0f0] w-full p-[5px] mb-[10px] focus:outline-none"
             placeholder="Password"
           />
-          <button className="rounded bg-[#1a69ca] w-full h-[38px] text-white mb-[10px]">
-            Sign Up
+          <button
+            className="rounded bg-[#1a69ca] w-full h-[38px] text-white mb-[10px]"
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            Sign in
           </button>
           <div className="w-full border-t-2 border-[#f0f0f0] mb-[10px]" />
           <button className="rounded border-2 border-[#f0f0f0] w-full h-[38px] text-[#5e606a] mb-[20px]">
@@ -30,7 +38,12 @@ const App = () => {
         </div>
         <div className="flex justify-center">
           Don't help accout yet?{" "}
-          <span className="text-[#41388a] cursor-pointer" onClick={() => {}}>
+          <span
+            className="text-[#41388a] cursor-pointer"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
             Sign up
           </span>
         </div>
@@ -38,3 +51,5 @@ const App = () => {
     </div>
   );
 };
+
+export default Login;
