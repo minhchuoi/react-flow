@@ -7,30 +7,34 @@ import {
   useNodesState,
   useEdgesState,
   addEdge,
+  BackgroundVariant,
 } from "@xyflow/react";
-
 import "@xyflow/react/dist/style.css";
-
 import {
   ZoomInOutlined,
   ZoomOutOutlined,
-  PlusSquareOutlined,
   DeleteOutlined,
   ArrowRightOutlined,
   ArrowLeftOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
+import MainNode from "../../components/custom-nodes/main";
+import "./index.css"
+import SidebarToolbox from "./sidebar-toolbox";
 
 const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
+  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" }, type: 'main' },
+  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" }, type: 'main' },
 ];
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+
+const nodeTypes = {
+  main: MainNode
+}
 
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  console.log(edges);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -42,39 +46,28 @@ export default function App() {
       <div className="flex flex-col w-full h-full">
         <div className="flex px-4 py-2 bg-[#f1f3f3] border-1	border-[#dadce0] border-solid	gap-[15px]">
           <Button
-            onClick={() => {}}
+            onClick={() => { }}
             icon={<ZoomInOutlined className="text-xl" />}
           />
           <Button
-            onClick={() => {}}
+            onClick={() => { }}
             icon={<ZoomOutOutlined className="text-xl" />}
           />
           <Button
-            onClick={() => {}}
+            onClick={() => { }}
             icon={<DeleteOutlined className="text-xl" />}
           />
           <Button
-            onClick={() => {}}
+            onClick={() => { }}
             icon={<ArrowLeftOutlined className="text-xl" />}
           />
           <Button
-            onClick={() => {}}
+            onClick={() => { }}
             icon={<ArrowRightOutlined className="text-xl" />}
           />
         </div>
         <div className="flex h-full">
-          <div className=" bg-[#f1f3f3] border-[#dadce0] border-solid	flex flex-col p-2 h-full gap-4">
-            <Button onClick={() => {}} icon={<PlusSquareOutlined />}>
-              Add Node
-            </Button>
-            <div className="border-t-0 border-[#dadce0] border-solid"></div>
-            <div className="flex flex-wrap gap-3 ">
-              <div className="w-[30px] h-[15px]	 border-solid cursor-pointer"></div>
-              <div className="w-[30px] h-[15px]	 border-solid rounded cursor-pointer"></div>
-              <div className="w-[30px] h-[15px]	 border-solid rounded-[50%] cursor-pointer"></div>
-              <div className="w-[30px] h-[30px]	 border-solid rounded-[50%] cursor-pointer"></div>
-            </div>
-          </div>
+          <SidebarToolbox setNodes={setNodes} />
           <div className="w-full h-full">
             <ReactFlow
               nodes={nodes}
@@ -82,10 +75,17 @@ export default function App() {
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
               onConnect={onConnect}
+              nodeTypes={nodeTypes}
+              snapToGrid
+              snapGrid={[30, 30]}
+              defaultViewport={{x: 0, y: 0, zoom: 1.5}}
+              elevateEdgesOnSelect
+              elevateNodesOnSelect
+              fitView
             >
               <Controls />
               <MiniMap />
-              <Background variant="dots" gap={12} size={1} />
+              <Background variant={BackgroundVariant.Cross} gap={12} size={1} />
             </ReactFlow>
           </div>
         </div>
