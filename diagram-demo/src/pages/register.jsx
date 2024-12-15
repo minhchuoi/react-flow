@@ -106,8 +106,8 @@ const Register = () => {
         </div>
         <div className="w-[800px] grid grid-cols-2 mt-[20px]">
           <div />
-          <div className="flex justify-center">
-            Already have account?{" "}
+          <div className="flex justify-center gap-x-1">
+            <span>Already have account?</span>
             <span
               className="text-[#41388a] cursor-pointer"
               onClick={() => {

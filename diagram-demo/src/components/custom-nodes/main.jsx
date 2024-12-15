@@ -3,7 +3,7 @@ import React from "react";
 
 export default function MainNode({data, isConnectable}) {
   return <>
-    <NodeResizer />
+    <NodeResizer keepAspectRatio={data.shape === 'circle' || data.shape === 'square'} />
     <div className="flex items-center justify-center w-full h-full">
       <input />
     </div>

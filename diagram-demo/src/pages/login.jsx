@@ -37,8 +37,8 @@ const Login = () => {
             Forgot Password?
           </div>
         </div>
-        <div className="flex justify-center">
-          Don't help accout yet?{" "}
+        <div className="flex justify-center gap-x-1">
+          <span>Don't have accout yet?</span>
           <span
             className="text-[#41388a] cursor-pointer"
             onClick={() => {

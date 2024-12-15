@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Select, Table, Input } from "antd";
 import icon from "../assets/home.png";
+import { useNavigate } from "react-router";
 const { Sider, Content } = Layout;
 
 const Dashboard = () => {
@@ -18,21 +19,10 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  console.log(colorBgContainer, borderRadiusLG);
   const content = () => {
     switch (keyContent) {
       case "1":
         return <MyDocuments />;
-      case "2":
-        return <ContentTest />;
-      case "3":
-        return <ContentTest />;
-      case "4":
-        return <ContentTest />;
-      case "5":
-        return <ContentTest />;
-      case "6":
-        return <ContentTest />;
       default:
         break;
     }
@@ -76,26 +66,6 @@ const Dashboard = () => {
               icon: <UserOutlined />,
               label: "My Documents",
             },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "Shared with me",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "Templates",
-            },
-            {
-              key: "4",
-              icon: <UploadOutlined />,
-              label: "Trash",
-            },
-            {
-              key: "5",
-              icon: <UploadOutlined />,
-              label: "Send Feedback",
-            },
           ]}
         />
       </Sider>
@@ -118,6 +88,45 @@ const Dashboard = () => {
 };
 
 const MyDocuments = () => {
+  const navigate = useNavigate()
+  const columns = [
+    {
+      title: "TITLE",
+      dataIndex: "title",
+      key: "title",
+      sorter: (a, b) => a.title.length - b.title.length,
+    },
+    {
+      title: "TYPE",
+      dataIndex: "type",
+      key: "type",
+      sorter: (a, b) => a.type.length - b.type.length,
+    },
+    {
+      title: "LAST MODIFIED",
+      dataIndex: "lastModified",
+      key: "lastModified",
+      sorter: (a, b) => a.dateCreated.length - b.dateCreated.length,
+    },
+    {
+      title: "Actions",
+      dataIndex: "status",
+      key: "status",
+      render: (t, record) =>
+        <div className="flex gap-2">
+            <Button className="bg-[#375fa9] text-white" onClick={() => {
+              console.log(record);
+              navigate(`/diagram/${record.id}`)
+            }}>Edit</Button>
+          </div>
+    },
+  ];
+
+  const dataSource = useMemo(() => {
+    const savedData = JSON.parse(localStorage.getItem('diagrams') || '[]')
+    return savedData.map(item => ({...item, type: "Flowchart", }))
+  }, [])
+
   return (
     <div className="bg-white  rounded-md shadow-xl">
       <div className="flex justify-between px-[30px] pt-[20px] mb-[10px]">
@@ -127,6 +136,7 @@ const MyDocuments = () => {
           <Button
             icon={<PlusOutlined color="#fff" />}
             className="bg-[#37a97d] text-white"
+            onClick={() => navigate("/diagram")}
           >
             New Document
           </Button>
@@ -136,66 +146,6 @@ const MyDocuments = () => {
     </div>
   );
 };
-
-const dataSource = [
-  {
-    key: "1",
-    title: "New CI Tasks APIs Architecture",
-    type: "Flowchart",
-    dateCreated: "Nov 21, 2023",
-    lastModified: "a year ago",
-    status: true,
-  },
-  {
-    key: "1",
-    title: "Old CI Tasks Works Flow",
-    type: "Flowchart",
-    dateCreated: "Nov 16, 2023",
-    lastModified: "a year ago",
-    status: false,
-  },
-];
-
-const columns = [
-  {
-    title: "TITLE",
-    dataIndex: "title",
-    key: "title",
-    sorter: (a, b) => a.title.length - b.title.length,
-  },
-  {
-    title: "TYPE",
-    dataIndex: "type",
-    key: "type",
-    sorter: (a, b) => a.type.length - b.type.length,
-  },
-  {
-    title: "DATE CREATED",
-    dataIndex: "dateCreated",
-    key: "dateCreated",
-    sorter: (a, b) => a.dateCreated.length - b.dateCreated.length,
-  },
-  {
-    title: "LAST MODIFIED",
-    dataIndex: "lastModified",
-    key: "lastModified",
-    sorter: (a, b) => a.dateCreated.length - b.dateCreated.length,
-  },
-  {
-    title: "",
-    dataIndex: "status",
-    key: "status",
-    render: (t, record) =>
-      record.status ? (
-        <div className="flex gap-2">
-          <Button className="bg-[#375fa9] text-white">Share</Button>
-          <Button className="bg-[#6a6a6a] text-white">More</Button>
-        </div>
-      ) : (
-        <div />
-      ),
-  },
-];
 
 const ContentTest = () => {
   return <div>Content</div>;
